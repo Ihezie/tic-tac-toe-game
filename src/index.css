@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+  }
+  html{
+    @apply bg-gunmetal-2
+  }
+  #root{
+    @apply sm:min-h-[730px] sm:relative sm:h-screen
+  }
+}
+@layer components{
+    .x-icon-v1{
+        @apply  text-robin-egg-blue stroke-[30] stroke-current
+    }
+    .o-icon-v1{
+        @apply text-xanthous stroke-[30] stroke-current
+    }
+    .my-transition{
+        @apply transition-all duration-300
+    }
+}
+
