@@ -18,10 +18,10 @@
 }
 @layer components{
     .x-icon-v1{
-        @apply  text-robin-egg-blue stroke-[30] stroke-current
+        @apply  text-robin-egg-blue stroke-[60] stroke-current
     }
     .o-icon-v1{
-        @apply text-xanthous stroke-[30] stroke-current
+        @apply text-xanthous stroke-[70] stroke-current
     }
     .my-transition{
         @apply transition-all duration-300
