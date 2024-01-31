@@ -6,6 +6,7 @@ const reducer = (state, action) => {
       newTileValues[payload.rowIndex][payload.columnIndex] = state.currentTurn;
       const winningTiles = checkPlayerWin(newTileValues, state.currentTurn);
       if (winningTiles.length !== 0) {
+        console.log(winningTiles);
         return {
           ...state,
           tileValues: newTileValues,
@@ -34,10 +35,18 @@ const checkPlayerWin = (tileValues, player) => {
   if (winningTiles.length !== 0) {
     return winningTiles;
   }
-  tileValues.map((row, rowIndex)=>{
-    row.map((tileValue, columnIndex)=>{
-
+  const transTileValues = tileValues.map((row, rowIndex) =>
+    row.map((_, columnIndex) => {
+      return tileValues[columnIndex][rowIndex];
     })
-  })
-  return winningTiles
+  );
+  transTileValues.some((row, rowIndex) => {
+    if (row.every((value) => value === player)) {
+      winningTiles = row.map((_, columnIndex) => `${columnIndex}-${rowIndex}`);
+    }
+  });
+  if (winningTiles.length !== 0) {
+    return winningTiles;
+  }
+  return winningTiles;
 };
