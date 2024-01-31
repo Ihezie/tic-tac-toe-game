@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const GameGrid = ({ initialRenderVariants, gameState, dispatch }) => {
   const { container, child } = initialRenderVariants;
 
-  const { tileValues } = gameState;
+  const { tileValues, winningTiles, currentTurn } = gameState;
 
   const handleClick = (rowIndex, columnIndex) => {
     if (!tileValues[rowIndex][columnIndex]) {
@@ -24,9 +24,17 @@ const GameGrid = ({ initialRenderVariants, gameState, dispatch }) => {
     >
       {tileValues.map((row, rowIndex) => {
         return row.map((tileValue, columnIndex) => {
+          const id = `${rowIndex}-${columnIndex}`
+          const active = winningTiles.includes(id);
+          let activeStyle = ''
+          if(active && (currentTurn === 'x')){
+            activeStyle = 'bg-robin-egg-blue'
+          } else if(active && (currentTurn === 'o')){
+            activeStyle = 'bg-xanthous'
+          }
           return (
             <motion.div
-              key={`${rowIndex}-${columnIndex}`}
+              key={id}
               variants={child}
               whileHover={{
                 scale: 1.1,
@@ -37,9 +45,10 @@ const GameGrid = ({ initialRenderVariants, gameState, dispatch }) => {
               onClick={() => {
                 handleClick(rowIndex, columnIndex);
               }}
-              className="bg-gunmetal rounded-xl shadow-[0_10px] shadow-black/30 flex justify-center items-center sm:rounded-2xl sm:shadow-[0_8px] sm:shadow-black/25 cursor-pointer"
             >
-              {tileValue && <GameIcon tileValue={tileValue} />}
+              <div className={`bg-gunmetal h-full rounded-xl shadow-[0_10px] shadow-black/30 flex justify-center items-center sm:rounded-2xl sm:shadow-[0_8px] sm:shadow-black/25 cursor-pointer my-transition ${activeStyle}`}>
+                {tileValue && <GameIcon tileValue={tileValue} active={active}/>}
+              </div>
             </motion.div>
           );
         });
@@ -49,7 +58,7 @@ const GameGrid = ({ initialRenderVariants, gameState, dispatch }) => {
 };
 export default GameGrid;
 
-const GameIcon = ({ tileValue }) => {
+const GameIcon = ({ tileValue, active }) => {
   const variants = {
     show: {
       scale: 1,
@@ -68,9 +77,9 @@ const GameIcon = ({ tileValue }) => {
   return (
     <motion.div initial="hide" animate="show" variants={variants}>
       {tileValue === "x" ? (
-        <FontAwesomeIcon icon="x" className="h-[60px] x-icon-v1" />
+        <FontAwesomeIcon icon="x" className={`h-[60px] x-icon-v1 ${active ? 'text-gunmetal' : ''}`} />
       ) : (
-        <FontAwesomeIcon icon="o" className="h-[60px] o-icon-v1" />
+        <FontAwesomeIcon icon="o" className={`h-[60px] o-icon-v1 ${active ? 'text-gunmetal' : ''}`} />
       )}
     </motion.div>
   );

@@ -47,7 +47,7 @@ function App() {
       [null, null, null],
       [null, null, null],
     ],
-    winState: false,
+    winningTiles: [],
   };
   const [gameState, dispatch] = useReducer(reducer, initialState);
 

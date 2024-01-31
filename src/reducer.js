@@ -4,11 +4,16 @@ const reducer = (state, action) => {
     case "PLAY A TURN":
       const newTileValues = [...state.tileValues];
       newTileValues[payload.rowIndex][payload.columnIndex] = state.currentTurn;
-      const playerHasWon = checkPlayerWin(newTileValues, state.currentTurn);
-      if(playerHasWon){
-        console.log('a player has won');
+      const winningTiles = checkPlayerWin(newTileValues, state.currentTurn);
+      if (winningTiles.length !== 0) {
+        return {
+          ...state,
+          tileValues: newTileValues,
+          winningTiles,
+        };
       }
       return {
+        ...state,
         currentTurn: state.currentTurn === "x" ? "o" : "x",
         tileValues: newTileValues,
       };
@@ -20,11 +25,19 @@ const reducer = (state, action) => {
 export default reducer;
 
 const checkPlayerWin = (tileValues, player) => {
-  const singleRowMatches = tileValues.find((row, index) =>
-    row.every((value) => value === player)
-  );
-  if(singleRowMatches){
-    return true
+  let winningTiles = [];
+  tileValues.some((row, rowIndex) => {
+    if (row.every((value) => value === player)) {
+      winningTiles = row.map((_, columnIndex) => `${rowIndex}-${columnIndex}`);
+    }
+  });
+  if (winningTiles.length !== 0) {
+    return winningTiles;
   }
-  
+  tileValues.map((row, rowIndex)=>{
+    row.map((tileValue, columnIndex)=>{
+
+    })
+  })
+  return winningTiles
 };

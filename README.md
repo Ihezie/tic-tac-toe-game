@@ -11,3 +11,4 @@
 
 - The `Array()` constructor and `map()` function.
 - `export default` with arrow functions.
+- `for in` loop
