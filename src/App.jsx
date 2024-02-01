@@ -41,13 +41,29 @@ function App() {
     },
   };
   const initialState = {
-    currentTurn: "x",
+    currentTurn: "o",
     tileValues: [
       [null, null, null],
       [null, null, null],
       [null, null, null],
     ],
     winningTiles: [],
+    stats: {
+      x: {
+        playerName: "player 1",
+        score: 0,
+        bgColor: "bg-robin-egg-blue",
+      },
+      ties: {
+        score: 0,
+        bgColor: "bg-powder-blue",
+      },
+      o: {
+        playerName: "player 2",
+        score: 0,
+        bgColor: "bg-xanthous",
+      },
+    },
   };
   const [gameState, dispatch] = useReducer(reducer, initialState);
 
@@ -63,7 +79,10 @@ function App() {
         gameState={gameState}
         dispatch={dispatch}
       />
-      <GameStats initialRenderVariants={initialRenderVariants} />
+      <GameStats
+        initialRenderVariants={initialRenderVariants}
+        gameState={gameState}
+      />
     </main>
   );
 }

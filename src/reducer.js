@@ -2,19 +2,23 @@ const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case "PLAY A TURN":
-      const newTileValues = [...state.tileValues];
-      newTileValues[payload.rowIndex][payload.columnIndex] = state.currentTurn;
-      const winningTiles = checkPlayerWin(newTileValues, state.currentTurn);
+      const { currentTurn, tileValues, stats } = state;
+      const newTileValues = [...tileValues];
+      newTileValues[payload.rowIndex][payload.columnIndex] = currentTurn;
+      const winningTiles = checkPlayerWin(newTileValues, currentTurn);
       if (winningTiles.length !== 0) {
+        const newStats = JSON.parse(JSON.stringify(stats));
+        newStats[currentTurn].score = newStats[currentTurn].score + 1;
         return {
           ...state,
           tileValues: newTileValues,
           winningTiles,
+          stats: newStats,
         };
       }
       return {
         ...state,
-        currentTurn: state.currentTurn === "x" ? "o" : "x",
+        currentTurn: currentTurn === "x" ? "o" : "x",
         tileValues: newTileValues,
       };
     default:
