@@ -6,7 +6,6 @@ const reducer = (state, action) => {
       newTileValues[payload.rowIndex][payload.columnIndex] = state.currentTurn;
       const winningTiles = checkPlayerWin(newTileValues, state.currentTurn);
       if (winningTiles.length !== 0) {
-        console.log(winningTiles);
         return {
           ...state,
           tileValues: newTileValues,
@@ -27,6 +26,7 @@ export default reducer;
 
 const checkPlayerWin = (tileValues, player) => {
   let winningTiles = [];
+  // WIN STATE 1
   tileValues.some((row, rowIndex) => {
     if (row.every((value) => value === player)) {
       winningTiles = row.map((_, columnIndex) => `${rowIndex}-${columnIndex}`);
@@ -35,6 +35,7 @@ const checkPlayerWin = (tileValues, player) => {
   if (winningTiles.length !== 0) {
     return winningTiles;
   }
+  // WIN STATE 2
   const transTileValues = tileValues.map((row, rowIndex) =>
     row.map((_, columnIndex) => {
       return tileValues[columnIndex][rowIndex];
@@ -48,5 +49,29 @@ const checkPlayerWin = (tileValues, player) => {
   if (winningTiles.length !== 0) {
     return winningTiles;
   }
+  // WIN STATE 3
+  const createDiagonalArray = (array) => {
+    return array.map((row, rowIndex) => {
+      return row.find((_, columnIndex) => columnIndex === rowIndex);
+    });
+  };
+  const diagonalOne = createDiagonalArray(tileValues);
+  if (diagonalOne.every((value) => value === player)) {
+    winningTiles = diagonalOne.map(
+      (_, columnIndex) => `${columnIndex}-${columnIndex}`
+    );
+    return winningTiles;
+  }
+  // WIN STATE 4
+  const reversedTileValues = tileValues.map((row) => [...row].reverse());
+  const diagonalTwo = createDiagonalArray(reversedTileValues);
+  if (diagonalTwo.every((value) => value === player)) {
+    winningTiles = diagonalTwo.map((_, columnIndex) => {
+      const winningTile = `${columnIndex}-${2 - columnIndex}`;
+      return winningTile;
+    });
+    return winningTiles;
+  }
+
   return winningTiles;
 };
