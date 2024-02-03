@@ -83,12 +83,16 @@ const GameIcon = ({ tileValue, active }) => {
       {tileValue === "x" ? (
         <FontAwesomeIcon
           icon="x"
-          className={`h-[60px] x-icon-v1 ${active ? "text-gunmetal" : ""}`}
+          className={`h-11 sm:h-[60px] x-icon-v1 ${
+            active ? "text-gunmetal" : ""
+          }`}
         />
       ) : (
         <FontAwesomeIcon
           icon="o"
-          className={`h-[60px] o-icon-v1 ${active ? "text-gunmetal" : ""}`}
+          className={`h-11 sm:h-[60px] o-icon-v1 ${
+            active ? "text-gunmetal" : ""
+          }`}
         />
       )}
     </motion.div>

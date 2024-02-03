@@ -14,12 +14,83 @@ const reducer = (state, action) => {
           tileValues: newTileValues,
           winningTiles,
           stats: newStats,
+          modalData: {
+            showModal: true,
+            winner: currentTurn,
+          },
+        };
+      }
+      if (
+        winningTiles.length === 0 &&
+        newTileValues.every((row) => row.every((tile) => tile))
+      ) {
+        const newStats = JSON.parse(JSON.stringify(stats));
+        newStats.ties.score = newStats.ties.score + 1;
+        return {
+          ...state,
+          tileValues: newTileValues,
+          stats: newStats,
+          modalData: {
+            showModal: true,
+            winner: null,
+          },
         };
       }
       return {
         ...state,
         currentTurn: currentTurn === "x" ? "o" : "x",
         tileValues: newTileValues,
+      };
+    case "RESET GAME":
+      return {
+        startingPlayer: "x",
+        currentTurn: "x",
+        tileValues: [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ],
+        winningTiles: [],
+        stats: {
+          x: {
+            playerName: "player 1",
+            score: 0,
+            bgColor: "bg-robin-egg-blue",
+            textColor: "text-robin-egg-blue",
+          },
+          ties: {
+            score: 0,
+            bgColor: "bg-powder-blue",
+            textColor: "text-powder-blue",
+          },
+          o: {
+            playerName: "player 2",
+            score: 0,
+            bgColor: "bg-xanthous",
+            textColor: "text-xanthous",
+          },
+        },
+        modalData: {
+          showModal: false,
+          winner: null,
+        },
+      };
+    case "NEXT ROUND":
+      const newStartingPlayer = state.startingPlayer === "x" ? "o" : "x";
+      return {
+        ...state,
+        startingPlayer: newStartingPlayer,
+        currentTurn: newStartingPlayer,
+        tileValues: [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ],
+        winningTiles: [],
+        modalData: {
+          showModal: false,
+          winner: null,
+        },
       };
     default:
       console.log("unexpected action type");

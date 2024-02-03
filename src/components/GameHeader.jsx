@@ -1,9 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 
-const GameHeader = ({ initialRenderVariants, gameState, dispatch }) => {
+const GameHeader = ({ initialRenderVariants, currentTurn, dispatch }) => {
   const { container, child } = initialRenderVariants;
-  const { currentTurn } = gameState;
   return (
     <motion.header
       className="grid grid-cols-3 gap-4 items-center sm:gap-5"
@@ -27,12 +26,15 @@ const GameHeader = ({ initialRenderVariants, gameState, dispatch }) => {
         TURN
       </motion.div>
       <motion.button
+        type="button"
+        onClick={()=>{
+          dispatch({type: 'RESET GAME'})
+        }}
         whileTap={{
           scale: 0.9,
         }}
         whileHover={{
-          backgroundColor: "#F2B237ff",
-          boxShadow: "0 5px #f2b23799",
+          rotate: -10,
         }}
         variants={child}
         className="bg-powder-blue justify-self-end w-11 h-10 flex justify-center items-center rounded shadow-[0_5px] shadow-powder-blue/50 cursor-pointer group sm:h-11 sm:w-12 sm:rounded-lg"
