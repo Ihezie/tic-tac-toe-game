@@ -6,34 +6,54 @@ const Modal = ({ gameState, dispatch }) => {
     modalData: { winner },
     stats,
   } = gameState;
+  const container = {
+    show: {
+      opacity: 1,
+      transition: {
+        type: "tween",
+        when: "beforeChildren",
+        delay: 0.4,
+      },
+    },
+    hide: {
+      opacity: 0,
+      transition: {
+        type: "tween",
+      },
+    },
+  };
+  const child = {
+    show: {
+      x: "0%",
+      transition: {
+        duration: 0.25,
+        type: "tween",
+      },
+    },
+    hide: {
+      x: "100%",
+      transition: {
+        duration: 0.25,
+        type: "tween",
+      },
+    },
+  };
   return (
     <motion.section
       className="fixed w-screen h-screen z-20 top-0 left-0 bg-black/45 grid place-items-center"
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
-      }}
+      variants={container}
+      initial="hide"
+      animate="show"
+      exit="hide"
       transition={{
         duration: 0.4,
         when: "beforeChildren",
+        delay: 0.4,
       }}
     >
       <motion.div
         className="w-full bg-gunmetal text-center pt-5 py-7 flex flex-col gap-4 sm:py-10"
-        initial={{
-          x: "100%",
-        }}
-        animate={{
-          x: "0%",
-        }}
-        transition={{
-          duration: 0.4,
-        }}
+        variants={child}
       >
         {winner && (
           <h2 className="uppercase font-bold text-powder-blue sm:font-extrabold">

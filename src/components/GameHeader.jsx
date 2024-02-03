@@ -27,21 +27,24 @@ const GameHeader = ({ initialRenderVariants, currentTurn, dispatch }) => {
       </motion.div>
       <motion.button
         type="button"
-        onClick={()=>{
-          dispatch({type: 'RESET GAME'})
+        onClick={() => {
+          dispatch({ type: "RESET GAME" });
         }}
         whileTap={{
           scale: 0.9,
         }}
         whileHover={{
-          rotate: -10,
+          rotate: -15,
+        }}
+        transition={{
+          duration: 0.35,
         }}
         variants={child}
-        className="bg-powder-blue justify-self-end w-11 h-10 flex justify-center items-center rounded shadow-[0_5px] shadow-powder-blue/50 cursor-pointer group sm:h-11 sm:w-12 sm:rounded-lg"
+        className="bg-powder-blue justify-self-end w-11 h-10 flex justify-center items-center rounded shadow-[0_5px] shadow-powder-blue/50 cursor-pointer sm:h-11 sm:w-12 sm:rounded-lg"
       >
         <FontAwesomeIcon
           icon="rotate-right"
-          className="my-transition sm:group-hover:rotate-90 w-5 h-5 sm:w-6 sm:h-6"
+          className="my-transition w-5 h-5 sm:w-6 sm:h-6"
         />
       </motion.button>
     </motion.header>
