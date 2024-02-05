@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
+import { useGameData } from "../AppProvider";
 
-const GameHeader = ({ initialRenderVariants, currentTurn, dispatch }) => {
+
+const GameHeader = ({ initialRenderVariants}) => {
   const { container, child } = initialRenderVariants;
+  const { gameState:{currentTurn}, dispatch } = useGameData();
+
   return (
     <motion.header
       className="grid grid-cols-3 gap-4 items-center sm:gap-5"

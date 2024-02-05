@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { animate, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useGameData } from "../AppProvider";
 
-const Modal = ({ gameState, dispatch }) => {
+const Modal = () => {
+  const { gameState, dispatch } = useGameData();
+
   const {
     modalData: { winner },
     stats,

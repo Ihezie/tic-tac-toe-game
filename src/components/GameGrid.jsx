@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGameData } from "../AppProvider";
 
-const GameGrid = ({ initialRenderVariants, gameState, dispatch }) => {
+const GameGrid = ({ initialRenderVariants }) => {
   const { container, child } = initialRenderVariants;
+  const { gameState, dispatch } = useGameData();
 
   const { tileValues, winningTiles, currentTurn } = gameState;
 

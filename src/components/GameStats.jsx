@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
+import { useGameData } from "../AppProvider";
 
-const GameStats = ({ initialRenderVariants, stats }) => {
+const GameStats = ({ initialRenderVariants }) => {
   const { container, child } = initialRenderVariants;
+  const {
+    gameState: { stats },
+  } = useGameData();
+
   return (
     <motion.section
       className="mt-6 grid grid-cols-3 gap-x-4 sm:gap-5"
