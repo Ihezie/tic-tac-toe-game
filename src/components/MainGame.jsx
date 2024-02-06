@@ -34,7 +34,7 @@ const MainGame = () => {
   };
   return (
     <>
-      <main className=" px-[5%] pt-5 min-w-[320px] max-w-[450px] xs:mx-auto sm:px-0 sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:max-w-none sm:w-[450px]">
+      <main className="px-[5%] pt-5 min-w-[320px] max-w-[450px] xs:mx-auto sm:px-0 sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:max-w-none sm:w-[450px]">
         <GameHeader initialRenderVariants={initialRenderVariants} />
         <GameGrid initialRenderVariants={initialRenderVariants} />
         <GameStats initialRenderVariants={initialRenderVariants} />

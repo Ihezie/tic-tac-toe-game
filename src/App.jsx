@@ -7,14 +7,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MainGame from "./components/MainGame";
 import AppProvider from "./AppProvider";
-import { useGameData } from "./AppProvider";
+import { useState } from "react";
+import Welcome from "./components/Welcome";
 
 library.add(faXmark, faO, faX, faRotateRight);
 
 function App() {
+  const [showWelcomePage, setShowWelcomePage] = useState(true);
+
   return (
     <AppProvider>
-      <MainGame />
+      {showWelcomePage ? (
+        <Welcome setShowWelcomePage={setShowWelcomePage} />
+      ) : (
+        <MainGame />
+      )}
     </AppProvider>
   );
 }

@@ -92,6 +92,11 @@ const reducer = (state, action) => {
           winner: null,
         },
       };
+    case "CHOOSE GAME MODE":
+      return {
+        ...state,
+        gameMode: payload,
+      };
     default:
       console.log("unexpected action type");
   }
