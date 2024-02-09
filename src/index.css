@@ -24,7 +24,7 @@
         @apply text-xanthous stroke-[70] stroke-current
     }
     .my-transition{
-        @apply transition-all duration-300
+        @apply transition-all duration-300 ease-linear
     }
 }
 

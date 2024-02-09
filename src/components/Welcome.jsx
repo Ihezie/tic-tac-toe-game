@@ -4,15 +4,16 @@ import { motion } from "framer-motion";
 import { useGameData } from "../AppProvider";
 import HumanVsHuman from "./HumanVsHuman";
 import HumanVsRobot from "./HumanVsRobot";
+import vs from "../assets/vs.png";
 
-const Welcome = ({ setShowWelcomePage }) => {
+const Welcome = () => {
   const {
     gameState: { gameMode },
     dispatch,
   } = useGameData();
 
   const chooseMode = (mode) => {
-    dispatch({ type: "CHOOSE GAME MODE", payload: mode });
+    dispatch({ type: "SET GAME MODE", payload: mode });
   };
 
   return (
@@ -41,12 +42,15 @@ const Welcome = ({ setShowWelcomePage }) => {
                 duration: 0.4,
               }}
               onClick={() => {
-                chooseMode("hvr");
+                chooseMode(1);
               }}
               className="w-[150px] h-[150px] text-sm font-bold rounded-2xl shadow-[0_7px] shadow-robin-egg-blue/40 flex flex-col justify-between items-center px-2 py-4 cursor-pointer bg-robin-egg-blue"
             >
               <FontAwesomeIcon icon={faRobot} className="h-16" />
-              <h3>Human vs Robot</h3>
+              <h3>
+                Human
+                <img src={vs} className="inline mx-1 w-[18px]" alt="vs" /> Robot
+              </h3>
             </motion.div>
             <motion.div
               whileHover={{
@@ -59,18 +63,21 @@ const Welcome = ({ setShowWelcomePage }) => {
                 duration: 0.4,
               }}
               onClick={() => {
-                chooseMode("hvh");
+                chooseMode(2);
               }}
               className="w-[150px] h-[150px] text-sm font-bold bg-xanthous rounded-2xl shadow-[0_7px] shadow-xanthous/40 flex flex-col justify-between items-center px-2 py-4 cursor-pointer"
             >
               <FontAwesomeIcon icon={faPerson} className="h-20" />
-              <h3>Human vs Human</h3>
+              <h3>
+                Human <img src={vs} className="inline w-[18px] mx-1" alt="vs" />{" "}
+                Human
+              </h3>
             </motion.div>
           </div>
         </section>
       )}
-      {gameMode === "hvh" && <HumanVsHuman />}
-      {gameMode === "hvr" && <HumanVsRobot />}
+      {gameMode === 1 && <HumanVsRobot />}
+      {gameMode === 2 && <HumanVsHuman />}
     </main>
   );
 };

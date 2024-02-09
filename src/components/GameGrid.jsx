@@ -1,18 +1,53 @@
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGameData } from "../AppProvider";
+import { useEffect } from "react";
 
 const GameGrid = ({ initialRenderVariants }) => {
   const { container, child } = initialRenderVariants;
   const { gameState, dispatch } = useGameData();
 
-  const { tileValues, winningTiles, currentTurn } = gameState;
+  const { tileValues, winningTiles, currentTurn, gameMode, stats } = gameState;
 
   const handleClick = (rowIndex, columnIndex) => {
-    if (!tileValues[rowIndex][columnIndex] && winningTiles.length === 0) {
+    if (
+      !tileValues[rowIndex][columnIndex] &&
+      winningTiles.length === 0 &&
+      stats[currentTurn].playerName === "you"
+    ) {
       dispatch({ type: "PLAY A TURN", payload: { rowIndex, columnIndex } });
     }
   };
+  //Handle Human vs Robot Mode
+  useEffect(() => {
+    const id = setTimeout(() => {
+      if (
+        gameMode === 1 &&
+        stats[currentTurn].playerName === "robot" &&
+        winningTiles.length === 0
+      ) {
+        const generateRandomIndex = () => {
+          return Math.floor(Math.random() * 3);
+        };
+        let rowIndex = generateRandomIndex();
+        let columnIndex = generateRandomIndex();
+        let tileHasValue = tileValues[rowIndex][columnIndex];
+        while (tileHasValue) {
+          console.log("ran");
+          rowIndex = generateRandomIndex();
+          columnIndex = generateRandomIndex();
+          tileHasValue = tileValues[rowIndex][columnIndex];
+        }
+        dispatch({
+          type: "PLAY A TURN",
+          payload: { rowIndex, columnIndex },
+        });
+      }
+    }, 1000);
+    return () => {
+      clearTimeout(id);
+    };
+  }, [currentTurn]);
 
   return (
     <motion.section
