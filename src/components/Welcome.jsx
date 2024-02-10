@@ -5,6 +5,7 @@ import { useGameData } from "../AppProvider";
 import HumanVsHuman from "./HumanVsHuman";
 import HumanVsRobot from "./HumanVsRobot";
 import vs from "../assets/vs.png";
+import initialRenderVariants from "../variants";
 
 const Welcome = () => {
   const {
@@ -17,19 +18,33 @@ const Welcome = () => {
   };
 
   return (
-    <main className="px-[5%] pt-5 min-w-[320px] max-w-[450px] xs:mx-auto sm:px-0 sm:mt-20 sm:max-w-none sm:w-[450px]">
+    <motion.main
+      initial="hide"
+      animate="show"
+      className={
+        "px-[5%] pt-5 min-w-[320px] max-w-[450px] xs:mx-auto sm:px-0 sm:max-w-none sm:w-[450px] sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2"
+      }
+    >
       <header className="flex justify-between mb-9 uppercase items-center">
-        <h1 className="text-3xl font-bold text-xanthous">tic-tac-toe</h1>
-        <div className="flex gap-3">
+        <motion.h1
+          variants={initialRenderVariants}
+          className="text-3xl font-bold text-xanthous"
+        >
+          tic-tac-toe
+        </motion.h1>
+        <motion.div variants={initialRenderVariants} className="flex gap-3">
           <FontAwesomeIcon icon="x" className="x-icon-v1 h-7" />
           <FontAwesomeIcon icon="o" className="o-icon-v1 h-7" />
-        </div>
+        </motion.div>
       </header>
       {!gameMode && (
         <section>
-          <h2 className="text-powder-blue font-bold capitalize text-center mb-10 text-xl">
+          <motion.h2
+            variants={initialRenderVariants}
+            className="text-powder-blue font-bold capitalize text-center mb-10 text-xl"
+          >
             Choose game mode
-          </h2>
+          </motion.h2>
           <div className="flex justify-between flex-col items-center gap-10 sm:flex-row">
             <motion.div
               whileHover={{
@@ -44,6 +59,7 @@ const Welcome = () => {
               onClick={() => {
                 chooseMode(1);
               }}
+              variants={initialRenderVariants}
               className="w-[150px] h-[150px] text-sm font-bold rounded-2xl shadow-[0_7px] shadow-robin-egg-blue/40 flex flex-col justify-between items-center px-2 py-4 cursor-pointer bg-robin-egg-blue"
             >
               <FontAwesomeIcon icon={faRobot} className="h-16" />
@@ -65,6 +81,7 @@ const Welcome = () => {
               onClick={() => {
                 chooseMode(2);
               }}
+              variants={initialRenderVariants}
               className="w-[150px] h-[150px] text-sm font-bold bg-xanthous rounded-2xl shadow-[0_7px] shadow-xanthous/40 flex flex-col justify-between items-center px-2 py-4 cursor-pointer"
             >
               <FontAwesomeIcon icon={faPerson} className="h-20" />
@@ -78,7 +95,7 @@ const Welcome = () => {
       )}
       {gameMode === 1 && <HumanVsRobot />}
       {gameMode === 2 && <HumanVsHuman />}
-    </main>
+    </motion.main>
   );
 };
 export default Welcome;

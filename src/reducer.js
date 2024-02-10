@@ -44,14 +44,23 @@ const reducer = (state, action) => {
         tileValues: newTileValues,
       };
     }
-    case "RESET GAME":
+    case "GO BACK":
       return initialState;
-    case "NEXT ROUND":
-      const newStartingPlayer = state.startingPlayer === "x" ? "o" : "x";
+    case "RESET GAME": {
+      const newStats = JSON.parse(JSON.stringify(state.stats));
+      newStats.x.score = 0;
+      newStats.o.score = 0;
       return {
         ...state,
-        startingPlayer: newStartingPlayer,
-        currentTurn: newStartingPlayer,
+        tileValues: initialState.tileValues,
+        stats: newStats,
+        currentTurn: state.startingPlayer,
+      };
+    }
+    case "NEXT ROUND":
+      return {
+        ...state,
+        currentTurn: state.startingPlayer,
         tileValues: [
           [null, null, null],
           [null, null, null],
@@ -110,7 +119,6 @@ const reducer = (state, action) => {
 };
 
 export default reducer;
-
 
 const checkPlayerWin = (tileValues, player) => {
   let winningTiles = [];

@@ -85,7 +85,7 @@ const Modal = () => {
         <div className="flex justify-center gap-5 items-center">
           <motion.button
             onClick={() => {
-              dispatch({ type: "RESET GAME" });
+              dispatch({ type: "GO BACK" });
             }}
             whileHover={{
               rotate: -8,

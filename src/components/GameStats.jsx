@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useGameData } from "../AppProvider";
+import initialRenderVariants from "../variants";
 
-const GameStats = ({ initialRenderVariants }) => {
-  const { container, child } = initialRenderVariants;
+const GameStats = () => {
   const {
     gameState: { stats },
   } = useGameData();
@@ -10,7 +10,6 @@ const GameStats = ({ initialRenderVariants }) => {
   return (
     <motion.section
       className="mt-6 grid grid-cols-3 gap-x-4 sm:gap-5"
-      variants={container}
       initial="hide"
       animate="show"
     >
@@ -20,7 +19,7 @@ const GameStats = ({ initialRenderVariants }) => {
           <motion.div
             key={key}
             className={`text-center ${stat.bgColor} h-[72px] flex flex-col items-center justify-center rounded-xl`}
-            variants={child}
+            variants={initialRenderVariants}
           >
             <span className="text-[13px] sm:text-sm uppercase font-medium">
               {stat.playerName ? `${key} (${stat.playerName})` : key}

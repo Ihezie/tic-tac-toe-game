@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGameData } from "../AppProvider";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import initialRenderVariants from "../variants";
 
 const HumanVsRobot = () => {
   const {
@@ -13,16 +14,20 @@ const HumanVsRobot = () => {
     dispatch({ type: "SET HUMAN AND ROBOT ICONS", payload: icon });
   };
   return (
-    <section>
-      <h1 className="text-powder-blue font-bold capitalize text-center mb-7 text-xl">
+    <motion.section initial="hide" animate="show">
+      <motion.h1
+        variants={initialRenderVariants}
+        className="text-powder-blue font-bold capitalize text-center mb-7 text-xl"
+      >
         Choose your Icon
-      </h1>
+      </motion.h1>
       <section className="flex justify-between mb-12">
         <motion.div
           whileTap={{
             scale: 0.9,
           }}
           className="relative"
+          variants={initialRenderVariants}
         >
           {stats.x.playerName === "you" && (
             <FontAwesomeIcon
@@ -51,6 +56,7 @@ const HumanVsRobot = () => {
             scale: 0.9,
           }}
           className="relative"
+          variants={initialRenderVariants}
         >
           {stats.o.playerName === "you" && (
             <FontAwesomeIcon
@@ -75,13 +81,16 @@ const HumanVsRobot = () => {
           </div>
         </motion.div>
       </section>
-      <h3 className="font-bold capitalize text-center mb-10 text-lg bg-powder-blue w-max mx-auto px-4 py-2 rounded-lg text-gunmetal">
+      <motion.h3
+        variants={initialRenderVariants}
+        className="font-bold capitalize text-center mb-10 text-lg bg-powder-blue w-max mx-auto px-4 py-2 rounded-lg text-gunmetal"
+      >
         Remember x goes first!
-      </h3>
+      </motion.h3>
       <div className="flex justify-center gap-10">
         <motion.button
           onClick={() => {
-            dispatch({ type: "RESET GAME" });
+            dispatch({ type: "GO BACK" });
           }}
           whileHover={{
             scale: 1.08,
@@ -92,6 +101,7 @@ const HumanVsRobot = () => {
           transition={{
             duration: 0.35,
           }}
+          variants={initialRenderVariants}
           type="button"
           className="bg-powder-blue block text-sm justify-self-end rounded-lg shadow-[0_5px] shadow-powder-blue/50 cursor-pointer py-3 px-4 uppercase font-extrabold lg:text-base"
         >
@@ -111,12 +121,13 @@ const HumanVsRobot = () => {
             duration: 0.35,
           }}
           type="button"
+          variants={initialRenderVariants}
           className="bg-xanthous block text-sm justify-self-end rounded-lg shadow-[0_5px] shadow-xanthous/50 cursor-pointer py-3 px-4 uppercase font-extrabold lg:text-base"
         >
           start
         </motion.button>
       </div>
-    </section>
+    </motion.section>
   );
 };
 export default HumanVsRobot;

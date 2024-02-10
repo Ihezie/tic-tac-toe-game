@@ -4,8 +4,8 @@ import reducer from "./reducer";
 const AppContext = createContext();
 
 export const initialState = {
-  showMainGame: true,
-  gameMode: 1,
+  showMainGame: false,
+  gameMode: null,
   startingPlayer: "x",
   currentTurn: "x",
   tileValues: [

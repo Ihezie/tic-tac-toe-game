@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useGameData } from "../AppProvider";
 import { useState, useEffect } from "react";
+import initialRenderVariants from "../variants";
 
 const HumanVsHuman = () => {
   const {
@@ -38,16 +39,25 @@ const HumanVsHuman = () => {
   }, [stats]);
 
   return (
-    <section>
-      <h1 className="text-powder-blue font-bold capitalize text-center mb-10 text-xl">
+    <motion.section initial="hide" animate="show">
+      <motion.h1
+        variants={initialRenderVariants}
+        className="text-powder-blue font-bold capitalize text-center mb-10 text-xl"
+      >
         Choose your Icons
-      </h1>
+      </motion.h1>
       <section className="flex flex-col gap-10 mb-12">
-        <div className="flex items-center justify-between ">
-          <div className="w-28 h-28 sm:w-[150px] sm:h-[150px] text-sm font-bold rounded-2xl shadow-[0_7px] shadow-robin-egg-blue/40 flex flex-col justify-center items-center px-2 py-4 bg-robin-egg-blue stroke-[60] stroke-current">
+        <div className="flex items-center justify-between">
+          <motion.div
+            variants={initialRenderVariants}
+            className="w-28 h-28 sm:w-[150px] sm:h-[150px] text-sm font-bold rounded-2xl shadow-[0_7px] shadow-robin-egg-blue/40 flex flex-col justify-center items-center px-2 py-4 bg-robin-egg-blue stroke-[60] stroke-current"
+          >
             <FontAwesomeIcon icon="x" className="h-12 sm:h-16" />
-          </div>
-          <div className="flex flex-col w-1/2 text-powder-blue h-28 justify-center gap-4">
+          </motion.div>
+          <motion.div
+            variants={initialRenderVariants}
+            className="flex flex-col w-1/2 text-powder-blue h-28 justify-center gap-4"
+          >
             <label htmlFor="player2" className="font-bold">
               Player 1:
             </label>
@@ -62,16 +72,22 @@ const HumanVsHuman = () => {
                 errorOne ? "border-2 !border-red-500" : ""
               }`}
             />
-          </div>
+          </motion.div>
         </div>
         <div className="flex items-center justify-between">
-          <div className="w-28 h-28 sm:w-[150px] sm:h-[150px] text-sm font-bold rounded-2xl shadow-[0_7px] shadow-xanthous/40 flex  justify-center items-center px-2 py-4 bg-xanthous ">
+          <motion.div
+            variants={initialRenderVariants}
+            className="w-28 h-28 sm:w-[150px] sm:h-[150px] text-sm font-bold rounded-2xl shadow-[0_7px] shadow-xanthous/40 flex  justify-center items-center px-2 py-4 bg-xanthous "
+          >
             <FontAwesomeIcon
               icon="o"
               className="h-12 sm:h-16 stroke-[70] stroke-current"
             />
-          </div>
-          <div className="flex flex-col w-1/2 text-powder-blue h-28 justify-center gap-4">
+          </motion.div>
+          <motion.div
+            variants={initialRenderVariants}
+            className="flex flex-col w-1/2 text-powder-blue h-28 justify-center gap-4"
+          >
             <label htmlFor="player2" className="font-bold">
               Player 2:
             </label>
@@ -86,16 +102,19 @@ const HumanVsHuman = () => {
                 errorTwo ? "border-2 !border-red-500" : ""
               }`}
             />
-          </div>
+          </motion.div>
         </div>
       </section>
-      <h3 className="font-bold capitalize text-center mb-10 text-lg bg-powder-blue w-max mx-auto px-4 py-2 rounded-lg text-gunmetal">
+      <motion.h3
+        variants={initialRenderVariants}
+        className="font-bold capitalize text-center mb-10 text-lg bg-powder-blue w-max mx-auto px-4 py-2 rounded-lg text-gunmetal"
+      >
         Remember x goes first!
-      </h3>
+      </motion.h3>
       <div className="flex justify-center gap-10">
         <motion.button
           onClick={() => {
-            dispatch({ type: "RESET GAME" });
+            dispatch({ type: "GO BACK" });
           }}
           whileHover={{
             scale: 1.08,
@@ -106,6 +125,7 @@ const HumanVsHuman = () => {
           transition={{
             duration: 0.35,
           }}
+          variants={initialRenderVariants}
           type="button"
           className="bg-powder-blue block text-sm justify-self-end rounded-lg shadow-[0_5px] shadow-powder-blue/50 cursor-pointer py-3 px-4 uppercase font-extrabold lg:text-base"
         >
@@ -126,13 +146,14 @@ const HumanVsHuman = () => {
           transition={{
             duration: 0.35,
           }}
+          variants={initialRenderVariants}
           type="button"
           className="bg-xanthous block text-sm justify-self-end rounded-lg shadow-[0_5px] shadow-xanthous/50 cursor-pointer py-3 px-4 uppercase font-extrabold lg:text-base"
         >
           start
         </motion.button>
       </div>
-    </section>
+    </motion.section>
   );
 };
 export default HumanVsHuman;

@@ -2,30 +2,37 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGameData } from "../AppProvider";
 import { useEffect } from "react";
+import initialRenderVariants from "../variants";
 
-const GameGrid = ({ initialRenderVariants }) => {
-  const { container, child } = initialRenderVariants;
+const GameGrid = () => {
   const { gameState, dispatch } = useGameData();
 
   const { tileValues, winningTiles, currentTurn, gameMode, stats } = gameState;
 
   const handleClick = (rowIndex, columnIndex) => {
+    //Checks whether the current playerName is equal to "you" ONLY in Human vs Robot mode.
+    let extraCondition = true;
+    if (gameMode === 1) {
+      extraCondition = stats[currentTurn].playerName === "you";
+    }
+    //End
     if (
       !tileValues[rowIndex][columnIndex] &&
       winningTiles.length === 0 &&
-      stats[currentTurn].playerName === "you"
+      extraCondition
     ) {
       dispatch({ type: "PLAY A TURN", payload: { rowIndex, columnIndex } });
     }
   };
   //Handle Human vs Robot Mode
   useEffect(() => {
-    const id = setTimeout(() => {
-      if (
-        gameMode === 1 &&
-        stats[currentTurn].playerName === "robot" &&
-        winningTiles.length === 0
-      ) {
+    let id = null;
+    if (
+      gameMode === 1 &&
+      stats[currentTurn].playerName === "robot" &&
+      winningTiles.length === 0
+    ) {
+      id = setTimeout(() => {
         const generateRandomIndex = () => {
           return Math.floor(Math.random() * 3);
         };
@@ -33,7 +40,6 @@ const GameGrid = ({ initialRenderVariants }) => {
         let columnIndex = generateRandomIndex();
         let tileHasValue = tileValues[rowIndex][columnIndex];
         while (tileHasValue) {
-          console.log("ran");
           rowIndex = generateRandomIndex();
           columnIndex = generateRandomIndex();
           tileHasValue = tileValues[rowIndex][columnIndex];
@@ -42,17 +48,16 @@ const GameGrid = ({ initialRenderVariants }) => {
           type: "PLAY A TURN",
           payload: { rowIndex, columnIndex },
         });
-      }
-    }, 1000);
+      }, 1000);
+    }
     return () => {
       clearTimeout(id);
     };
-  }, [currentTurn]);
+  }, [tileValues]);
 
   return (
     <motion.section
       className="mt-20 grid grid-cols-3 grid-rows-3 w-[90vw] h-[90vw] min-h-[288px] min-w-[288px] gap-x-4 gap-y-6 xs:w-full xs:h-[405px] sm:h-[450px] sm:mt-6 sm:gap-x-5"
-      variants={container}
       initial="hide"
       animate="show"
       transition={{
@@ -72,7 +77,7 @@ const GameGrid = ({ initialRenderVariants }) => {
           return (
             <motion.div
               key={id}
-              variants={child}
+              variants={initialRenderVariants}
               whileHover={{
                 scale: 1.1,
               }}

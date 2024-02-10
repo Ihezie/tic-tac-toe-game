@@ -1,26 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
 import { useGameData } from "../AppProvider";
+import initialRenderVariants from "../variants";
 
-
-const GameHeader = ({ initialRenderVariants}) => {
-  const { container, child } = initialRenderVariants;
-  const { gameState:{currentTurn}, dispatch } = useGameData();
+const GameHeader = () => {
+  const {
+    gameState: { currentTurn },
+    dispatch,
+  } = useGameData();
 
   return (
     <motion.header
       className="grid grid-cols-3 gap-4 items-center sm:gap-5"
-      variants={container}
       initial="hide"
       animate="show"
     >
-      <motion.div className="flex gap-1" variants={child}>
+      <motion.div className="flex gap-1" variants={initialRenderVariants}>
         <FontAwesomeIcon icon="x" className="x-icon-v1 w-8 h-8" />
         <FontAwesomeIcon icon="o" className="o-icon-v1 w-8 h-8" />
       </motion.div>
       <motion.div
         className="bg-gunmetal shadow-[0_5px] shadow-black/40 text-powder-blue flex items-center justify-center gap-2 font-extrabold tracking-wide h-10 rounded-md sm:h-11 sm:rounded-lg"
-        variants={child}
+        variants={initialRenderVariants}
       >
         {currentTurn === "x" ? (
           <FontAwesomeIcon icon="x" className="stroke-[50] stroke-current" />
@@ -43,7 +44,7 @@ const GameHeader = ({ initialRenderVariants}) => {
         transition={{
           duration: 0.35,
         }}
-        variants={child}
+        variants={initialRenderVariants}
         className="bg-powder-blue justify-self-end w-11 h-10 flex justify-center items-center rounded shadow-[0_5px] shadow-powder-blue/50 cursor-pointer sm:h-11 sm:w-12 sm:rounded-lg"
       >
         <FontAwesomeIcon
