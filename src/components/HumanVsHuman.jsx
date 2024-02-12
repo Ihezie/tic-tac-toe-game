@@ -107,7 +107,7 @@ const HumanVsHuman = () => {
       </section>
       <motion.h3
         variants={initialRenderVariants}
-        className="font-bold capitalize text-center mb-10 text-lg bg-powder-blue w-max mx-auto px-4 py-2 rounded-lg text-gunmetal"
+        className="font-bold capitalize text-center mb-10  bg-powder-blue w-max mx-auto px-3 py-2 rounded-md text-gunmetal"
       >
         Remember x goes first!
       </motion.h3>

@@ -122,52 +122,54 @@ export default reducer;
 
 const checkPlayerWin = (tileValues, player) => {
   let winningTiles = [];
-  // WIN STATE 1
+  const checkEquality = (a, b, c) => {
+    if (a === player && b === player && c === player) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  // HORIZONTALS
   tileValues.some((row, rowIndex) => {
     if (row.every((value) => value === player)) {
       winningTiles = row.map((_, columnIndex) => `${rowIndex}-${columnIndex}`);
+      return true
     }
   });
   if (winningTiles.length !== 0) {
     return winningTiles;
   }
-  // WIN STATE 2
-  const transTileValues = tileValues.map((row, rowIndex) =>
-    row.map((_, columnIndex) => {
-      return tileValues[columnIndex][rowIndex];
-    })
-  );
-  transTileValues.some((row, rowIndex) => {
-    if (row.every((value) => value === player)) {
-      winningTiles = row.map((_, columnIndex) => `${columnIndex}-${rowIndex}`);
+  // VERTICALS
+  tileValues.some((_, rowIndex) => {
+    if (
+      checkEquality(
+        tileValues[0][rowIndex],
+        tileValues[1][rowIndex],
+        tileValues[2][rowIndex]
+      )
+    ) {
+      winningTiles = [
+        `${0}-${rowIndex}`,
+        `${1}-${rowIndex}`,
+        `${2}-${rowIndex}`,
+      ];
+      return true
     }
   });
   if (winningTiles.length !== 0) {
     return winningTiles;
   }
-  // WIN STATE 3
-  const createDiagonalArray = (array) => {
-    return array.map((row, rowIndex) => {
-      return row.find((_, columnIndex) => columnIndex === rowIndex);
-    });
-  };
-  const diagonalOne = createDiagonalArray(tileValues);
-  if (diagonalOne.every((value) => value === player)) {
-    winningTiles = diagonalOne.map(
-      (_, columnIndex) => `${columnIndex}-${columnIndex}`
-    );
-    return winningTiles;
-  }
-  // WIN STATE 4
-  const reversedTileValues = tileValues.map((row) => [...row].reverse());
-  const diagonalTwo = createDiagonalArray(reversedTileValues);
-  if (diagonalTwo.every((value) => value === player)) {
-    winningTiles = diagonalTwo.map((_, columnIndex) => {
-      const winningTile = `${columnIndex}-${2 - columnIndex}`;
-      return winningTile;
-    });
-    return winningTiles;
-  }
+  // DIAGONALS
 
+  // DIAGONAL ONE
+  if (checkEquality(tileValues[0][0], tileValues[1][1], tileValues[2][2])) {
+    winningTiles = ["0-0", "1-1", "2-2"];
+    return winningTiles;
+  }
+  // DIAGONAL TWO
+  if (checkEquality(tileValues[0][2], tileValues[1][1], tileValues[2][0])) {
+    winningTiles = ["0-2", "1-1", "2-0"];
+    return winningTiles;
+  }
   return winningTiles;
 };
