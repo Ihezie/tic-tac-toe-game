@@ -10,10 +10,11 @@ export default {
         "rich-black": "#0E202Aff",
         xanthous: "#F2B237ff",
         "robin-egg-blue": "#31C4BEff",
+        brown: "#A52A2A",
       },
       screens: {
-        xs: '450px'
-      }
+        xs: "450px",
+      },
     },
   },
   plugins: [],

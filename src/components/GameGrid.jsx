@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGameData } from "../AppProvider";
 import { useEffect } from "react";
 import initialRenderVariants from "../variants";
+import robotMove from "../robotMove";
 
 const GameGrid = () => {
   const { gameState, dispatch } = useGameData();
 
-  const { tileValues, winningTiles, currentTurn, gameMode, stats } = gameState;
+  const { tileValues, winningTiles, currentTurn, gameMode, stats, gameDifficulty } = gameState;
 
   const handleClick = (rowIndex, columnIndex) => {
     //Checks whether the current playerName is equal to "you" ONLY in Human vs Robot mode.
@@ -33,17 +34,11 @@ const GameGrid = () => {
       winningTiles.length === 0
     ) {
       id = setTimeout(() => {
-        const generateRandomIndex = () => {
-          return Math.floor(Math.random() * 3);
-        };
-        let rowIndex = generateRandomIndex();
-        let columnIndex = generateRandomIndex();
-        let tileHasValue = tileValues[rowIndex][columnIndex];
-        while (tileHasValue) {
-          rowIndex = generateRandomIndex();
-          columnIndex = generateRandomIndex();
-          tileHasValue = tileValues[rowIndex][columnIndex];
-        }
+        const { r: rowIndex, c: columnIndex } = robotMove(
+          tileValues,
+          currentTurn,
+          gameDifficulty
+        );
         dispatch({
           type: "PLAY A TURN",
           payload: { rowIndex, columnIndex },
@@ -57,7 +52,7 @@ const GameGrid = () => {
 
   return (
     <motion.section
-      className="mt-20 grid grid-cols-3 grid-rows-3 w-[90vw] h-[90vw] min-h-[288px] min-w-[288px] gap-x-4 gap-y-6 xs:w-full xs:h-[405px] sm:h-[450px] sm:mt-6 sm:gap-x-5"
+      className="mt-8 grid grid-cols-3 grid-rows-3 w-[90vw] h-[90vw] min-h-[288px] min-w-[288px] gap-x-4 gap-y-6 xs:w-full xs:h-[405px] sm:h-[450px] sm:mt-6 sm:gap-x-5"
       initial="hide"
       animate="show"
       transition={{

@@ -4,6 +4,7 @@ import reducer from "./reducer";
 const AppContext = createContext();
 
 export const initialState = {
+  gameDifficulty: 'medium', //For human vs robot mode
   showMainGame: false,
   gameMode: null,
   startingPlayer: "x",
