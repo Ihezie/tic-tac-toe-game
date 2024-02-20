@@ -43,7 +43,7 @@ const GameGrid = () => {
           type: "PLAY A TURN",
           payload: { rowIndex, columnIndex },
         });
-      }, 1000);
+      }, 500);
     }
     return () => {
       clearTimeout(id);
