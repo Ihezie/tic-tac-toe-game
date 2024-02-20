@@ -33,7 +33,7 @@ const GameHeader = () => {
           type="button"
           className="bg-powder-blue block text-sm justify-self-end rounded-lg shadow-[0_4px] shadow-powder-blue/50 cursor-pointer py-[10px] px-4 uppercase font-extrabold"
         >
-          go back
+          go home
         </motion.button>
         {gameMode === 1 && (
           <motion.div

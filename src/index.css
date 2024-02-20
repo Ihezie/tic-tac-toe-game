@@ -10,7 +10,7 @@
     font-optical-sizing: auto;
   }
   html{
-    @apply bg-gunmetal-2
+    @apply bg-gunmetal-2 
   }
   #root{
     @apply sm:min-h-[730px] sm:relative sm:h-screen sm:pt-px
@@ -28,3 +28,8 @@
     }
 }
 
+@media (max-width: 450px){
+  html{
+    font-size: 14px
+  }
+}

@@ -137,7 +137,7 @@ const DifficultyController = ({ dispatch, gameDifficulty }) => {
   return (
     <motion.div
       variants={initialRenderVariants}
-      className="mx-auto sm:w-4/5 flex mb-8 gap-1.5"
+      className="mx-auto flex flex-col gap-4 mb-8 items-center justify-center sm:flex-row sm:gap-2"
     >
       {difficulties.map(({ level, style }, index) => (
         <motion.button
@@ -148,7 +148,7 @@ const DifficultyController = ({ dispatch, gameDifficulty }) => {
           whileHover={{
             y: -10,
           }}
-          className={`shadow-[0_5px] block text-sm justify-self-end first:rounded-tl-lg first:rounded-bl-lg last:rounded-br-lg last:rounded-tr-lg cursor-pointer py-3 px-4 uppercase w-1/3 font-extrabold lg:text-base my-transition duration-200 ${
+          className={`shadow-[0_5px] block text-sm justify-self-end rounded-lg cursor-pointer py-3 px-4 uppercase min-w-[32%] font-extrabold lg:text-base my-transition duration-200 ${
             gameDifficulty === level
               ? style
               : "bg-gunmetal text-powder-blue shadow-black/25"
@@ -160,3 +160,5 @@ const DifficultyController = ({ dispatch, gameDifficulty }) => {
     </motion.div>
   );
 };
+
+"first:rounded-tl-lg first:rounded-bl-lg last:rounded-br-lg last:rounded-tr-lg";
