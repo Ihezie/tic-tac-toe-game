@@ -19,7 +19,9 @@
 A web version of the popular tic-tac-toe game, featuring two modes: human vs human and human vs computer. In human vs human mode, players are able to:
 - Choose their own icons (x always goes first)
 - Input their names to be displayed on the scoreboard
+
 In the human vs computer mode, the single player is able to:
+
 - Choose their own icon (x always goes first)
 - Select a difficulty level from easy, medium and impossible
 
