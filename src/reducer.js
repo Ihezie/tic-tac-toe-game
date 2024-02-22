@@ -51,6 +51,7 @@ const reducer = (state, action) => {
       const newStats = JSON.parse(JSON.stringify(state.stats));
       newStats.x.score = 0;
       newStats.o.score = 0;
+      newStats.ties.score = 0;
       return {
         ...state,
         tileValues: initialState.tileValues,
@@ -59,9 +60,11 @@ const reducer = (state, action) => {
       };
     }
     case "NEXT ROUND":
+      const newStartingPlayer = state.startingPlayer === "o" ? "x" : "o";
       return {
         ...state,
-        currentTurn: state.startingPlayer,
+        startingPlayer: newStartingPlayer,
+        currentTurn: newStartingPlayer,
         tileValues: [
           [null, null, null],
           [null, null, null],
@@ -117,8 +120,8 @@ const reducer = (state, action) => {
     case "SET DIFFICULTY": {
       return {
         ...state,
-        gameDifficulty: payload
-      }
+        gameDifficulty: payload,
+      };
     }
     default:
       console.log("unexpected action type");
@@ -126,4 +129,3 @@ const reducer = (state, action) => {
 };
 
 export default reducer;
-

@@ -12,8 +12,9 @@ export default function robotMove(tileValues, currentTurn, gameDifficulty) {
   let bestMove = null;
   let bestScore = -100;
   //r denotes "rowIndex", and c denotes "columnIndex"
-  for (const r in localTileValues) {
-    for (const c in localTileValues[r]) {
+
+  for (let r = 0; r < localTileValues.length; r++) {
+    for (let c = 0; c < localTileValues[r].length; c++) {
       if (localTileValues[r][c] === null) {
         localTileValues[r][c] = robotTurn;
         let score = minimax(
@@ -68,13 +69,16 @@ function minimax(localTileValues, depth, isMaximizing, turns, maxDepth) {
     return scores[randomKey];
   }
   if (depth > maxDepth) {
-    return scores[robotTurn];
+    const scoreKeys = Object.keys(scores);
+    const randomIndex = Math.floor(Math.random() * scoreKeys.length);
+    const randomKey = scoreKeys[randomIndex];
+    return scores[randomKey];
   }
   if (isMaximizing) {
     let bestScore = -100;
     //r denotes "rowIndex", and c denotes "columnIndex"
-    for (const r in localTileValues) {
-      for (const c in localTileValues[r]) {
+    for (let r = 0; r < localTileValues.length; r++) {
+      for (let c = 0; c < localTileValues[r].length; c++) {
         if (localTileValues[r][c] === null) {
           localTileValues[r][c] = robotTurn;
           let score = minimax(
@@ -93,8 +97,8 @@ function minimax(localTileValues, depth, isMaximizing, turns, maxDepth) {
   } else {
     let bestScore = 100;
     //r denotes "rowIndex", and c denotes "columnIndex"
-    for (const r in localTileValues) {
-      for (const c in localTileValues[r]) {
+    for (let r = 0; r < localTileValues.length; r++) {
+      for (let c = 0; c < localTileValues[r].length; c++) {
         if (localTileValues[r][c] === null) {
           localTileValues[r][c] = humanTurn;
           let score = minimax(
